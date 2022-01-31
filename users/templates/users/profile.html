@@ -1,0 +1,76 @@
+{% extends "users/base.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+{%load watermark%}
+<style>
+    body {
+    background: #654ea3;
+    background: linear-gradient(to right, #e96443, #904e95);
+    min-height: 100vh;
+    overflow-x: hidden
+}
+</style>
+    <div class="row my-3 p-3">
+        <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
+    </div>
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1">Username:</label>
+                            {{ user_form.username }}
+                        <label class="small mb-1">Email:</label>
+                            {{ user_form.email }}
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url 'password_change' %}">Change Password</a>
+                        <hr>
+                        <label class="small mb-1">Change Avatar:</label>
+                        {{ profile_form.avatar }}
+                    </div>
+                    <label class="small mb-1">Имя:</label>
+                        {{ profile_form.firstname }}
+                        <hr>
+                    <label class="small mb-1">Фамилия:</label>
+                        {{ profile_form.lastname }}
+                    <hr>
+                    <label class="small mb-1">Город:</label>
+                        {{ profile_form.country }}
+                    <hr>
+                    <label class="small mb-1">Долгота:</label>
+                        {{ profile_form.longitude }}<hr>
+                    <label class="small mb-1">Широта:</label>
+                        {{ profile_form.latitude }}<hr>
+                    <label class="small mb-1">О себе:</label>
+                        {{ profile_form.bio }}
+                    <hr>
+                    <label class="small mb-1">Пол:</label>
+                        {{ profile_form.gender }}
+                    <hr>
+                    <label class="small mb-1">Возраст:</label>
+                        {{ profile_form.age }}
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+        </form>
+        {%if photo1%}
+            <img src="{{photo.avatar.url}}" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+            {%endif%}
+    </div>
+{% endblock content %}

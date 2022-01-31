@@ -1,0 +1,86 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #3498DB;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+
+body {
+    background: #654ea3;
+    background: linear-gradient(to right, #e96443, #904e95);
+    min-height: 100vh;
+    overflow-x: hidden
+}
+</style>
+    <div class="jumbotron">
+        <h1 class="display-4">Приветствую, {{user.username.title|default:'Гость'}}</h1>
+        <p class="lead">
+            Это сайт знакомств, где вы сможете найти свою вторую половинку и стать по-настоящему счастливым
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'logout' %}" role="button">Logout</a>
+            {% else %}
+                <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Sign in</a>
+            {% endif %}
+        </p>
+    </div>
+<div class="card">
+{%for p in profiles%}
+
+<div class="card">
+    {%if p.avatar%}
+  <img src="{{p.avatar.url}}"  style="width:100%">
+    {%endif%}
+  <br>
+  <h3><b>{{p.firstname}} {{p.lastname}}</b></h3>
+  <p class="title"></p>
+  <p>{{p.country}}</p>
+    <p>Возраст: {{p.age}}</p>
+  <div style="margin: 24px 0;">
+    <a href="https://www.linkedin.com/in/md-abu-talha/" target="_blank"><i class="fa fa-linkedin"></i></a>
+    <a href="https://www.facebook.com/talha.sust.cse" target="_blank"><i class="fa fa-facebook"></i></a>
+    <a href="https://github.com/talha08" target="_blank"><i class="fa fa-github"></i></a>
+    <a href="https://medium.com/@talhaqc" target="_blank"><i class="fa fa-medium"></i></a>
+  </div>
+  <p><a href="{{ p.get_absolute_url }}" class="button" >Profile</a></p>
+</div>
+
+</div>
+{%endfor%}
+{% endblock content %}
