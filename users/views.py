@@ -38,7 +38,7 @@ def profiles(request, profile_id):
             msg['From'] = 'Your gmail'
             msg['To'] = mail
             password = 'Your password'
-            msg.add_header('C ontent-Type', 'text/html')
+            msg.add_header('Content-Type', 'text/html')
             msg.set_payload(email_content)
 
             s = smtplib.SMTP('smtp.gmail.com: 587')
