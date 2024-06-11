@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "pyproject"
+version = "0.1.0"
+description = ""
+authors = [" Malchik1234 <ag-developer@smartpetrol.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+django = "^5.0.6"
+pillow = "^10.3.0"
+psycopg = "^3.1.19"
+psycopg2 = "^2.9.9"
+watermark-py = "^0.0.3.post3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

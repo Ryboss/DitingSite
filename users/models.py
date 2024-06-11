@@ -7,6 +7,11 @@ from PIL import Image
 from django.urls import reverse
 
 
+class Gender_Choices(models.TextChoices):
+    man = "man", ("Мучжина")
+    woman = "woman", ("Жежина")
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -17,13 +22,12 @@ class Profile(models.Model):
         ('мужчина', 'm'),
         ('женщина', 'w')
     )
-    gender = models.CharField('Пол', max_length=7, choices=sex, default='')
-    lastname = models.CharField('Lastname', max_length=100, default='NoLastName')
-    firstname = models.CharField('Имя', max_length=100, default='NoName')
-    age = models.CharField('Возраст',max_length=3,default='Возраст')
+    gender = models.CharField("Пол", choices=Gender_Choices)
+    last_name = models.CharField('Фамилия', max_length=100, default="")
+    first_name = models.CharField('Имя', max_length=100, default="")
+    age = models.IntegerField("Возраст", null=True)
     longitude = models.FloatField('Долгота', max_length=20, null=True)
     latitude=models.FloatField('Широта', max_length=20, null=True)
-
 
     def __str__(self):
         return self.user.username
@@ -43,9 +47,7 @@ class Profile(models.Model):
             img.save(self.avatar.path)
 
 
-
-
 class Like(models.Model):
-    user = models.CharField(max_length=6, null=True)
-    who_likes = models.CharField(max_length=50, null=True)
-    profile_likes = models.CharField(max_length=50, null=True)
+    user = models.CharField(max_length=6, null=False)
+    who_likes = models.CharField(max_length=50, null=False)
+    profile_likes = models.CharField(max_length=50, null=False)
